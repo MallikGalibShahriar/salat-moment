@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salat Moment</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="location-container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-location"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span id="location-text">Locating...</span>
+      </div>
+      <div class="date-container">
+        <span id="date-text">Loading...</span>
+        <span id="hijri-date-text"></span>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="next-prayer-card">
+        <button id="settings-btn" class="icon-btn settings-trigger-card" aria-label="Settings">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1.09 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
+        <div class="prayer-info">
+          <span class="label" id="prayer-card-label">Next Prayer</span>
+          <h1 id="next-prayer-name">--</h1>
+        </div>
+        <div class="timer-container">
+          <span id="next-prayer-timer">00:00:00</span>
+          <span class="sub-label">remaining</span>
+        </div>
+      </div>
+
+      <div class="prayer-list" id="prayer-list">
+        <!-- Prayers will be injected here -->
+        <div class="prayer-item loading">
+          <div class="skeleton"></div>
+        </div>
+        <div class="prayer-item loading">
+          <div class="skeleton"></div>
+        </div>
+        <div class="prayer-item loading">
+          <div class="skeleton"></div>
+        </div>
+        <div class="prayer-item loading">
+          <div class="skeleton"></div>
+        </div>
+        <div class="prayer-item loading">
+          <div class="skeleton"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div id="status-msg"></div>
+      <div class="developer-credit">
+        Developed by <a href="https://www.linkedin.com/in/mallikgalibshahriar/" target="_blank" rel="noopener noreferrer">Mallik Galib Shahriar</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Settings Overlay -->
+  <div id="settings-overlay" class="settings-overlay hidden">
+    <div class="settings-content">
+      <div class="settings-header">
+         <h2>Settings</h2>
+         <button id="close-settings" class="icon-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+         </button>
+      </div>
+
+      <div class="form-group toggle-group" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <label for="theme-toggle" style="margin: 0; cursor: pointer;">Dark Mode</label>
+        <label class="switch">
+          <input type="checkbox" id="theme-toggle">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      
+      <div class="form-group">
+        <label for="calc-method">Calculation Method</label>
+        <select id="calc-method">
+          <option value="3">Muslim World League (MWL)</option>
+          <option value="2">ISNA (North America)</option>
+          <option value="1">Egyptian General Authority</option>
+          <option value="4">Umm Al-Qura (Makkah)</option>
+          <option value="5">Karachi</option>
+          <option value="12">France (UOIF)</option>
+          <option value="13">Turkey (Diyanet)</option>
+          <option value="7">Tehran</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="school-method">Asr Juristic Method</label>
+        <select id="school-method">
+          <option value="0">Standard (Shafi, Maliki, Hanbali)</option>
+          <option value="1">Hanafi</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <button id="refresh-loc-btn" class="secondary-btn">
+           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+           Refresh Location
+        </button>
+      </div>
+      
+      <button id="save-settings" class="primary-btn">Save Changes</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
